@@ -35,6 +35,7 @@ public class AssetLoader implements ITrackLoader, IVehicleLoader {
                 trackL[x][y] = trackLayout.getPixel(x,y) == Color.BLACK ? 1 : 0;
             }
         }
+        //linie in plus
 
         //Initialize an new track
         Track track = new Track(trackL);
