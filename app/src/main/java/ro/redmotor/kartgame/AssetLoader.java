@@ -36,6 +36,11 @@ public class AssetLoader implements ITrackLoader, IVehicleLoader {
             }
         }
 
+        // public void nouCode() {
+        // cod
+        // }
+
+
         // public void cevaDiferit() {
 
         // }
