@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -252,7 +253,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
 
     @Override
     public void vehicleCollided(Track.CollisionResult result) {
-
+        if (result == Track.CollisionResult.LightCollision) {
+            Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(30);
+        }
     }
 
     @Override

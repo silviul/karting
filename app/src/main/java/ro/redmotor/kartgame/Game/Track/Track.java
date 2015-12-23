@@ -72,13 +72,13 @@ public class Track {
         if (checkPointCollides(frontLeft)) {
             vehicle.setAngle(vehicle.getAngle() + Math.PI / 12);
             vehicle.setSpeed(vehicle.getSpeed() * 0.8);
-            return CollisionResult.Totalled;
+            return CollisionResult.LightCollision;
         }
 
         if (checkPointCollides(frontRight)) {
             vehicle.setAngle(vehicle.getAngle() - Math.PI / 12);
             vehicle.setSpeed(vehicle.getSpeed() * 0.8);
-            return CollisionResult.Totalled;
+            return CollisionResult.LightCollision;
         }
 
 

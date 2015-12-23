@@ -18,6 +18,9 @@ public class ThrottleBrakingSeparateControlsDO extends DrawableObject implements
 
     private Bitmap throttle;
     private Bitmap brake;
+    private Bitmap throttlePressed;
+    private Bitmap brakePressed;
+
 
     //brake detection bounds
     private float boundX1b;
@@ -51,6 +54,8 @@ public class ThrottleBrakingSeparateControlsDO extends DrawableObject implements
     public void loadObject(Context context) {
         throttle = BitmapFactory.decodeResource(context.getResources(), R.drawable.throttle);
         brake = BitmapFactory.decodeResource(context.getResources(), R.drawable.brake);
+        throttlePressed = BitmapFactory.decodeResource(context.getResources(), R.drawable.throttle_pressed);
+        brakePressed = BitmapFactory.decodeResource(context.getResources(), R.drawable.brake_pressed);
     }
 
     @Override
@@ -70,13 +75,14 @@ public class ThrottleBrakingSeparateControlsDO extends DrawableObject implements
         canvas.translate(boundX1b + (boundX2b - boundX1b) / 2, boundY1b + (boundY2b - boundY1b) / 2);
         float scaleX = (canvas.getWidth()/ getWidthInM()) / (brake.getWidth()/ 1f);
         canvas.scale(scaleX, scaleX);
-        canvas.drawBitmap(brake, -brake.getWidth() / 2, -brake.getHeight() / 2, null);
+
+        canvas.drawBitmap(getSelection() == -1 ? brakePressed : brake, -brake.getWidth() / 2, -brake.getHeight() / 2, null);
 
         //draw trottle pedal
         canvas.restoreToCount(state);
         canvas.translate(boundX1t + (boundX2t - boundX1t) / 2, boundY1t + (boundY2t - boundY1t) / 2);
         canvas.scale(scaleX, scaleX);
-        canvas.drawBitmap(throttle,-throttle.getWidth()/2, -throttle.getHeight()/2,null );
+        canvas.drawBitmap(getSelection() == 1 ? throttlePressed : throttle,-throttle.getWidth()/2, -throttle.getHeight()/2,null );
     }
 
     private PedalPress checkPoint(float x, float y) {

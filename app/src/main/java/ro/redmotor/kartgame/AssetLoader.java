@@ -47,7 +47,7 @@ public class AssetLoader implements ITrackLoader, IVehicleLoader {
 
         //Initialize an new track
         Track track = new Track(trackL);
-        track.setFinishLine(new Line2(new Point(33.5, 10), new Point(33.5, 16.5)));
+        track.setFinishLine(new Line2(new Point(33.5, 1), new Point(33.5, 16.5)));
         track.setStartAngle(-Math.PI/2);
         track.setScale(20);
         track.setStartPosition(new Point(35,11));

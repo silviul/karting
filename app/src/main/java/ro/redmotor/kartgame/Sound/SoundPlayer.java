@@ -16,10 +16,6 @@ public class SoundPlayer {
 
     private SoundPool soundPool;
 
-    public SoundPlayer() {
-        buildSoundPool();
-    }
-
     private SoundPool buildSoundPool() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -38,12 +34,15 @@ public class SoundPlayer {
     }
 
     public void loadSounds(Context context) {
+        soundPool = buildSoundPool();
+        if (soundPool == null) return;
         soundPool.load(context, R.raw.engine,1);
     }
 
     private boolean enginePlaying = false;
 
     public void playEngine(double rpm) {
+        if (soundPool == null) return;
 
         if (!enginePlaying) {
             soundPool.play(1, 1, 1, 1, -1, 0.5f + (float) (rpm / 5000));
@@ -54,6 +53,7 @@ public class SoundPlayer {
     }
 
     public void stopEngine() {
+        if (soundPool == null) return;
         soundPool.stop(1);
         enginePlaying = false;
     }
