@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_rounded_corner_dark_grey"
+        android:state_enabled="false"
+        android:alpha = "0.1"/>
+    <item android:drawable="@drawable/bg_rounded_corner_dark_red"
+        android:state_pressed="true"
+        android:alpha = "0.2"/>
+    <item android:drawable="@drawable/bg_rounded_corner_red"
+        android:state_focused="true"
+        android:alpha = "0.1"/>
+    <item android:drawable="@drawable/bg_rounded_corner_red" />
+</selector>
