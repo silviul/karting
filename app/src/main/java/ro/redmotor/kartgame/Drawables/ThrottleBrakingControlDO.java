@@ -19,14 +19,14 @@ public class ThrottleBrakingControlDO extends DrawableObject {
     private float boundY1;
     private float boundY2;
 
-    public ThrottleBrakingControlDO(Point screenSize, boolean debug) {
-        super(screenSize, debug);
+    public ThrottleBrakingControlDO(Scene scene, boolean debug) {
+        super(scene, debug);
 
         //be careful of the order X2 > X1 and Y2 > Y1
-        boundX1 = metersWidth(0);
-        boundX2 = metersWidth(3);
-        boundY1 = metersHeight(getHeightInM() / 2 - 1.5f);
-        boundY2 = metersHeight(getHeightInM() / 2 + 1.5f);
+        boundX1 = scene.metersWidth(0);
+        boundX2 = scene.metersWidth(3);
+        boundY1 = scene.metersHeight(scene.getHeightInM() / 2 - 1.5f);
+        boundY2 = scene.metersHeight(scene.getHeightInM() / 2 + 1.5f);
         yLine = boundY1 + (boundY2 - boundY1) / 2;
 
     }

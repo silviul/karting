@@ -5,8 +5,17 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+
+import ro.redmotor.kartgame.Cameras.DelayedFixedKartCamera;
+import ro.redmotor.kartgame.Cameras.FixedKartCamera;
+import ro.redmotor.kartgame.Cameras.FixedTrackCamera;
+import ro.redmotor.kartgame.Cameras.ICamera;
+import ro.redmotor.kartgame.Drawables.CamControlDO;
 import ro.redmotor.kartgame.Drawables.DrawableObject;
+import ro.redmotor.kartgame.Drawables.GhostDO;
 import ro.redmotor.kartgame.Drawables.KartDO;
+import ro.redmotor.kartgame.Drawables.Scene;
 import ro.redmotor.kartgame.Drawables.SteeringControlDO;
 import ro.redmotor.kartgame.Drawables.TelemetryDO;
 import ro.redmotor.kartgame.Drawables.ThrottleBrakingSeparateControlsDO;
@@ -34,30 +43,39 @@ public class GameBuilder {
         display.getMetrics(metrics);
         Point screenSize = new Point(metrics.widthPixels,metrics.heightPixels);
 
+
         AssetLoader assetLoader = new AssetLoader(context);
         Game game = new Game(null, assetLoader, assetLoader);
-        DrawableObject kart = new KartDO(screenSize, game, debug);
-        DrawableObject track = new TrackDO(screenSize, game, debug);
-        DrawableObject wheel = new SteeringControlDO(screenSize, debug);
-        DrawableObject pedals = new ThrottleBrakingSeparateControlsDO(screenSize, debug);
-        DrawableObject telemetry =  new TelemetryDO(screenSize, debug, game);
+        Scene scene = new Scene(screenSize, game);
+        DrawableObject kart = new KartDO(scene, debug);
+        DrawableObject track = new TrackDO(scene, debug);
+        DrawableObject wheel = new SteeringControlDO(scene, debug);
+        DrawableObject pedals = new ThrottleBrakingSeparateControlsDO(scene, debug);
+        DrawableObject telemetry =  new TelemetryDO(scene, debug);
+        DrawableObject ghost = new GhostDO(scene, debug);
+        DrawableObject cam = new CamControlDO(scene,debug);
         IGameControl steeringControl = (IGameControl) wheel;
         IGameControl throttleBrakeControl = (IGameControl) pedals;
+        IGameControl camControl = (IGameControl) cam;
         SoundPlayer soundPlayer = new SoundPlayer();
 
 
         GamePanel gamePanel = new GamePanel(context,
-                track,
-                kart,
-                wheel,
-                pedals,
-                telemetry,
+                scene,
                 steeringControl,
                 throttleBrakeControl,
+                camControl,
                 soundPlayer,
                 game
                 );
 
+
+        ArrayList<ICamera> cameras = new ArrayList();
+        cameras.add(new FixedKartCamera(scene));
+        cameras.add(new FixedTrackCamera(scene));
+        cameras.add(new DelayedFixedKartCamera(scene));
+
+        scene.setCameras(cameras);
         game.setListener(gamePanel);
 
         return gamePanel;

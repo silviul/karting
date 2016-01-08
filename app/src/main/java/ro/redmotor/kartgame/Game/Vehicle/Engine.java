@@ -1,6 +1,7 @@
 package ro.redmotor.kartgame.Game.Vehicle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -114,6 +115,7 @@ public class Engine
     {
 
         ArrayList<Integer> list = new ArrayList(powerCurve.keySet());
+        Collections.sort(list);
 
         for (int i = 1; i < list.size(); i++)
         {

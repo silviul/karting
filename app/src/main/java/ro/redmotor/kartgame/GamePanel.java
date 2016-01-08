@@ -10,6 +10,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import ro.redmotor.kartgame.Drawables.DrawableObject;
+import ro.redmotor.kartgame.Drawables.Scene;
 import ro.redmotor.kartgame.Game.Engine.Game;
 import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
 import ro.redmotor.kartgame.Game.Track.Track;
@@ -21,14 +22,11 @@ import ro.redmotor.kartgame.Sound.SoundPlayer;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IGameListener {
 
     private GameThread gameThread;
+    private Scene scene;
     private Game game;
-    private DrawableObject track;
-    private DrawableObject kart;
-    private DrawableObject steeringWheel;
-    private DrawableObject pedals;
-    private DrawableObject telemetry;
     private IGameControl steeringControl;
     private IGameControl throttleBrakingControl;
+    private IGameControl camControl;
 
 
     //sound
@@ -40,26 +38,21 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
     private boolean clutchIn = false;
 
     public GamePanel(Context context,
-                     DrawableObject track,
-                     DrawableObject kart,
-                     DrawableObject steeringWheel,
-                     DrawableObject pedals,
-                     DrawableObject telemetry,
+                     Scene scene,
                      IGameControl steeringControl,
                      IGameControl throttleBrakingControl,
+                     IGameControl camControl,
                      SoundPlayer soundPlayer,
                      Game game) {
         super(context);
 
-        this.track = track;
-        this.kart = kart;
-        this.steeringWheel = steeringWheel;
-        this.pedals = pedals;
-        this.telemetry = telemetry;
+        this.scene = scene;
         this.steeringControl = steeringControl;
         this.throttleBrakingControl = throttleBrakingControl;
+        this.camControl = camControl;
         this.soundPlayer = soundPlayer;
         this.game = game;
+
 
         getHolder().addCallback(this);
         setFocusable(true);
@@ -76,17 +69,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
         game.loadTrack("");
         game.loadVehicle();
 
-        //load track
-        track.loadObject(getContext());
-
-        //load kart
-        kart.loadObject(getContext());
-
-        //load steering control
-        steeringWheel.loadObject(getContext());
-        //load throttle braking control
-        pedals.loadObject(getContext());
-
+        scene.loadDrawables(getContext());
     }
 
     @Override
@@ -140,6 +123,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
                 float y = ev.getY();
                 throttleBrakingControl.checkPointerDown(ev.getPointerId(0), x, y);
                 steeringControl.checkPointerDown(ev.getPointerId(0), x, y);
+                camControl.checkPointerDown(ev.getPointerId(0), x, y);
+                if (camControl.getSelection()==1) scene.nextCam();
                 break;
             }
 
@@ -191,6 +176,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
                 float y = ev.getY(pointerIndex);
                 throttleBrakingControl.checkPointerDown(pointerId, x, y);
                 steeringControl.checkPointerDown(pointerId, x, y);
+                camControl.checkPointerDown(pointerId, x, y);
+                if (camControl.getSelection()==1) scene.nextCam();
 
                 break;
             }
@@ -228,20 +215,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
     @Override
     public void draw(Canvas canvas) {
         //uncomment this if you want to zoom out the scene for debugging
-        //canvas.scale(0.25f, 0.25f);
+        //canvas.scale(0.1f, 0.1f);
+        //canvas.translate(500/0.80f,500/0.80f);
         super.draw(canvas);
 
-        //draw assets
-        track.draw(canvas);
-        kart.draw(canvas);
-
-        //draw controls
-        steeringWheel.draw(canvas);
-        pedals.draw(canvas);
-
-
-        //draw telemetry
-        telemetry.draw(canvas);
+        scene.drawScene(canvas);
 
     }
 

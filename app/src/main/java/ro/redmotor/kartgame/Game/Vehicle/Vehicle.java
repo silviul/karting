@@ -2,12 +2,13 @@ package ro.redmotor.kartgame.Game.Vehicle;
 
 import ro.redmotor.kartgame.Game.Utilities.Interfaces.ICollidable;
 import ro.redmotor.kartgame.Game.Utilities.Point;
+import ro.redmotor.kartgame.Game.Utilities.SpatialObject;
 import ro.redmotor.kartgame.Game.Utilities.Timer;
 
 /**
  * Created by Gabi on 12/11/2015.
  */
-public class Vehicle implements ICollidable{
+public class Vehicle extends SpatialObject implements ICollidable{
 
     private double speed = 0;
     private double tractionWheelSpeed = 0;
@@ -18,19 +19,8 @@ public class Vehicle implements ICollidable{
     private double maxSteering = Math.PI / 6;
     private double mass = 170;
     private Timer timer;
-    private double angle;
     private Powertrain powertrain;
     private BrakingSystem brakingSystem;
-    private Point position;
-
-    @Override
-    public double getAngle() {
-        return angle;
-    }
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
 
     public ro.redmotor.kartgame.Game.Vehicle.Powertrain getPowertrain() {
         return powertrain;
@@ -46,15 +36,6 @@ public class Vehicle implements ICollidable{
 
     public void setBrakingSystem(BrakingSystem brakingSystem) {
         this.brakingSystem = brakingSystem;
-    }
-
-    @Override
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
     }
 
     public double getWheelBase() {
@@ -221,4 +202,10 @@ public class Vehicle implements ICollidable{
         return steeringAngle / maxSteering;
     }
 
+    public SpatialObject toSpatialObject() {
+        SpatialObject sp = new SpatialObject();
+        sp.setAngle(this.getAngle());
+        sp.setPosition(this.getPosition());
+        return sp;
+    }
 }

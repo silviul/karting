@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+
+import java.util.ArrayList;
 
 import ro.redmotor.kartgame.Game.Engine.Game;
 import ro.redmotor.kartgame.Game.Utilities.Line2;
@@ -12,18 +15,17 @@ import ro.redmotor.kartgame.R;
 
 /**
  * Created by Gabi on 12/14/2015.
- * As evidence shows, still not sure how to draw the goddam track properly
- * Work in progress
- * TODO: clean this up
+ * Reached some sort of agreement now, on how to do it
+ * it was obvious in the end
+ *
  */
 public class TrackDO extends DrawableObject {
 
     private Bitmap trackBitmap;
-    private Game game;
 
-    public TrackDO(Point screenSize, Game game, boolean debug) {
-        super(screenSize, debug);
-        this.game = game;
+    public TrackDO(Scene scene, boolean debug) {
+        super(scene, debug);
+        scene.setTrack(this);
     }
 
     @Override
@@ -32,103 +34,17 @@ public class TrackDO extends DrawableObject {
     }
 
 
-   /* protected void drawObject2(Canvas canvas) {
-
-
-        float trackScale = (float)game.getTrack().getScale();
-        float scaleFactor = getPixelsPerMeterWidth() / trackScale;
-
-        float xPos = (float)game.getVehicle().getPosition().getX() * trackScale;
-        float yPos = (float)(game.getTrack().getTrackHeight() - game.getVehicle().getPosition().getY()) * trackScale;
-
-        xPos = xPos - (float) (getWidthInM()  / 2) * trackScale + ((float) game.getVehicle().getWidth() / 2) * trackScale;
-        yPos = yPos - (float) getHeightInM() * trackScale;
-
-        canvas.translate(-xPos, -yPos);
-        double angle = -game.getVehicle().getAngle() / Math.PI * 180.0f;
-        canvas.rotate((float) angle);
-        canvas.scale(scaleFactor, scaleFactor);
-
-        canvas.drawBitmap(trackBitmap, 0, 0, null);
-
-//        float srcX = (float)xPos - ((float)screenSize.getX()/scaleFactor/2);
-//        srcX = srcX < 0 ? 0 : srcX;
-//        float srcY = (float)yPos - ((float)screenSize.getY()/scaleFactor/2);
-//        srcY = srcY < 0 ? 0 : srcY;
-//        float srcX2 = srcX + (float)screenSize.getX()/scaleFactor;
-//        srcX2 = srcX2 >= trackBitmap.getWidth() ? trackBitmap.getWidth() : srcX2;
-//        float srcY2 = srcY + (float)screenSize.getY()/scaleFactor;
-//        srcY2 = srcY2 >= trackBitmap.getHeight() ? trackBitmap.getHeight() : srcY2;
-//
-//        Rect src = new Rect((int)srcX,(int)srcY, (int)srcX2, (int)srcY2);
-//        Rect dest = new Rect(0, 0, (int)(screenSize.getX()/scaleFactor), (int)(screenSize.getY()/scaleFactor));
-//
-//
-//        canvas.drawBitmap(trackBitmap, src, dest, null);
-
-    }*/
-
-    /*private boolean odd = false;*/
-
-
     @Override
     protected void drawObject(Canvas canvas) {
-
-        float trackScale = (float)game.getTrack().getScale();
-        float scaleFactor = getPixelsPerMeterWidth() / trackScale;
-
-        double xPos = game.getVehicle().getPosition().getX() * trackScale;
-        double yPos = (game.getTrack().getTrackHeight() - game.getVehicle().getPosition().getY()) * trackScale;
-
-        Line2 line = new Line2(new Point(0,0), new Point(xPos, yPos));
-        line = line.rotate(game.getVehicle().getAngle());
-
-        canvas.translate((-(float) line.getEndPoint().getX()) * scaleFactor
-                        + (float) (screenSize.getX() / 2) // add kart screen offset
-                        - metersWidth((float) game.getVehicle().getWidth() / 2), // add half a kart length
-                -(float) line.getEndPoint().getY() * scaleFactor
-                        + (float) screenSize.getY());
-
-        double angle = -game.getVehicle().getAngle() / Math.PI * 180.0f;
-
-        canvas.scale(scaleFactor, scaleFactor);
-        canvas.rotate((float) angle);
         canvas.drawBitmap(trackBitmap, 0, 0, null);
+    }
 
-/*
-
-        float lengthY = getHeightInM() * trackScale * 0.5f;
-        float lengthX = getWidthInM() * trackScale * 1.5f;
-        //float srcX = (float)game.getVehicle().getPosition().getX() * trackScale - ((getWidthInM()*trackScale)/2);
-        float srcX = (float)game.getVehicle().getPosition().getX() * trackScale - (lengthY) + (float) (game.getVehicle().getWidth() / 2)* trackScale;
-        //srcX -= length;
-        //srcX = srcX < 0 ? 0 : srcX;
-        //float srcY = (float)game.getTrack().getTrackHeight() - (float)game.getVehicle().getPosition().getY() * trackScale - ((getHeightInM()*trackScale)/2);
-        float srcY = (float)game.getTrack().getTrackHeight() * trackScale - (float)game.getVehicle().getPosition().getY() * trackScale - (lengthY);
-        //srcY -= length;
-        //srcY = srcY < 0 ? 0 : srcY;
-        float srcX2 = srcX + 2 * lengthY;
-        //srcX2 = srcX2 >= trackBitmap.getWidth() ? trackBitmap.getWidth() :  srcX2;
-        float srcY2 = srcY + 2 * lengthY;
-        //srcY2 = srcY2 >= trackBitmap.getHeight() ? trackBitmap.getHeight() : srcY2;
-
-        //Rect src = new Rect((int)srcX,(int)srcY, (int)srcX2, (int)srcY2);
-        //Rect dest = new Rect((int)0, (int)0, (int)(screenSize.getX() / scaleFactor), (int)(screenSize.getY() / scaleFactor));
-
-        Rect src = new Rect((int)srcX,(int)srcY, (int)srcX2, (int)srcY2);
-        Rect dest = new Rect((int)0, (int)0, (int)(screenSize.getX() / scaleFactor), (int)(screenSize.getY() / scaleFactor));
-
-        canvas.scale(scaleFactor, scaleFactor);
-        canvas.rotate((float) angle);
-        //if (!odd) {
-            canvas.drawBitmap(trackBitmap, 0, 0, null);
-        //    odd= true;
-        //} else if (odd) {
-            //canvas.drawBitmap(trackBitmap, src, src, null);
-        //    odd = false;
-        //}
-
-
+//    private long i,sum;
+//
+//    protected void drawObject2(Canvas canvas) {
+//
+//        long startTime = System.currentTimeMillis();
+//
 //        float trackScale = (float)game.getTrack().getScale();
 //        float scaleFactor = getPixelsPerMeterWidth() / trackScale;
 //
@@ -145,29 +61,53 @@ public class TrackDO extends DrawableObject {
 //                        + (float) screenSize.getY());
 //
 //        double angle = -game.getVehicle().getAngle() / Math.PI * 180.0f;
-//        canvas.rotate((float) angle);
-//
-//
 //
 //        canvas.scale(scaleFactor, scaleFactor);
+//        canvas.rotate((float) angle);
 //
+////        //compute drawing window
+////        Point vehiclePosition = game.getVehicle().getPosition();
+////        Point topLeft = getWorldPoint(new Point(vehiclePosition.getX() - getWidthInM() / 2,
+////                 (game.getTrack().getTrackHeight() - vehiclePosition.getY()) - getHeightInM()));
+////        Point topRight = getWorldPoint(new Point(vehiclePosition.getX() + 1.2 * (getWidthInM() / 2),
+////                 (game.getTrack().getTrackHeight() - vehiclePosition.getY()) - getHeightInM()));
+////        Point bottomRight = getWorldPoint(new Point(vehiclePosition.getX() + 1.2 * (getWidthInM() / 2),
+////                 (game.getTrack().getTrackHeight() - vehiclePosition.getY()) - 0));
+////        Point bottomLeft = getWorldPoint(new Point(vehiclePosition.getX() - getWidthInM() / 2,
+////                 (game.getTrack().getTrackHeight() - vehiclePosition.getY()) - 0));
+////
+////
+////        double minX = topLeft.getX() > topRight.getX() ? topRight.getX() : topLeft.getX();
+////        minX = minX > bottomRight.getX() ? bottomRight.getX() : minX;
+////        minX = minX > bottomLeft.getX() ? bottomLeft.getX() : minX;
+////        minX = minX < 0 ? 0 : minX;
+////
+////        double minY = topLeft.getY() > topRight.getY() ? topRight.getY() : topLeft.getY();
+////        minY = minY > bottomRight.getY() ? bottomRight.getY() : minY;
+////        minY = minY > bottomLeft.getY() ? bottomLeft.getY() : minY;
+////        minY = minY < 0 ? 0 : minY;
+////
+////        double maxX = topLeft.getX() > topRight.getX() ? topLeft.getX() : topRight.getX();
+////        maxX = maxX > bottomRight.getX() ? maxX : bottomRight.getX();
+////        maxX = maxX > bottomLeft.getX() ? maxX : bottomLeft.getX();
+////
+////
+////        double maxY = topLeft.getY() > topRight.getY() ? topLeft.getY() : topRight.getY();
+////        maxY = maxY > bottomRight.getY() ? maxY : bottomRight.getY();
+////        maxY = maxY > bottomLeft.getY() ? maxY : bottomLeft.getY();
+////
+////
+////        Rect src = new Rect();
+////        src.set((int) (minX * 20), (int) (minY * 20),
+////                (int) (maxX * 20), (int)(maxY * 20));
+////        Rect dest = new Rect(0,0,src.width(),src.height());
+////        canvas.drawBitmap(trackBitmap,src, src, null);
+//        canvas.drawBitmap(trackBitmap, 0, 0, null);
 //
-//        float srcX = (float)game.getVehicle().getPosition().getX() * trackScale - ((getWidthInM()*trackScale)/2);
-//        srcX = srcX < 0 ? 0 : srcX;
-//        float srcY = (float)game.getVehicle().getPosition().getY() * trackScale - ((getHeightInM()*trackScale)/2);
-//        srcY = srcY < 0 ? 0 : srcY;
-//        float srcX2 = srcX + 10 * trackScale;
-//        srcX2 = srcX2 >= trackBitmap.getWidth() ? trackBitmap.getWidth() : srcX2;
-//        float srcY2 = srcY + 17 * trackScale;
-//        srcY2 = srcY2 >= trackBitmap.getHeight() ? trackBitmap.getHeight() : srcY2;
+//        sum += System.currentTimeMillis() - startTime;
+//        i++;
+//        //System.out.println(String.format("track: %d", System.currentTimeMillis() - startTime));
 //
-//        Rect src = new Rect((int)0,(int)0, (int)srcX2, (int)srcY2);
-//        Rect dest = new Rect(0, 0, 10 * (int)(getPixelsPerMeterWidth() / scaleFactor), 17 * (int)(getPixelsPerMeterHeight() / scaleFactor));
-//
-//        //canvas.drawBitmap(trackBitmap, 0, 0, null);
-//        canvas.drawBitmap(trackBitmap, src, dest, null);
-
-*/
-    }
+//    }
 
 }

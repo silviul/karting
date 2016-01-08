@@ -37,17 +37,19 @@ public class ThrottleBrakingSeparateControlsDO extends DrawableObject implements
     //finger ids pressed
     private Integer brakePointer, throttlePointer;
 
-    public ThrottleBrakingSeparateControlsDO(Point screenSize, boolean debug) {
-        super(screenSize, debug);
-        boundX1b = metersWidth(0f);
-        boundX2b = metersWidth(1.5f);
-        boundY1b = metersHeight(getHeightInM() - 3.1f);
-        boundY2b = metersHeight(getHeightInM() - 0);
+    public ThrottleBrakingSeparateControlsDO(Scene scene, boolean debug) {
+        super(scene, debug);
+        scene.setPedals(this);
 
-        boundX1t = metersWidth(1.6f);
-        boundX2t = metersWidth(3.5f);
-        boundY1t = metersHeight(getHeightInM() - 3.1f);
-        boundY2t = metersHeight(getHeightInM() - 0);
+        boundX1b = scene.metersWidth(0f);
+        boundX2b = scene.metersWidth(1.5f);
+        boundY1b = scene.metersHeight(scene.getHeightInM() - 3.1f);
+        boundY2b = scene.metersHeight(scene.getHeightInM() - 0);
+
+        boundX1t = scene.metersWidth(1.6f);
+        boundX2t = scene.metersWidth(3.5f);
+        boundY1t = scene.metersHeight(scene.getHeightInM() - 3.1f);
+        boundY2t = scene.metersHeight(scene.getHeightInM() - 0);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ThrottleBrakingSeparateControlsDO extends DrawableObject implements
         int state = canvas.save();
         //draw brake pedal
         canvas.translate(boundX1b + (boundX2b - boundX1b) / 2, boundY1b + (boundY2b - boundY1b) / 2);
-        float scaleX = (canvas.getWidth()/ getWidthInM()) / (brake.getWidth()/ 1f);
+        float scaleX = (canvas.getWidth()/ scene.getWidthInM()) / (brake.getWidth()/ 1f);
         canvas.scale(scaleX, scaleX);
 
         canvas.drawBitmap(getSelection() == -1 ? brakePressed : brake, -brake.getWidth() / 2, -brake.getHeight() / 2, null);

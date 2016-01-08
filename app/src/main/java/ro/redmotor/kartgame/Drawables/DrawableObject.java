@@ -15,16 +15,12 @@ import ro.redmotor.kartgame.Game.Utilities.Point;
  */
 public abstract class DrawableObject {
 
-    protected Point screenSize;
-    private Float aspectRatio;
-    private Float pixelsPerMeterWidth;
-    private Float pixelsPerMeterHeight;
+    protected Scene scene;
     protected boolean debug;
-    private final int METERS_PER_SCREEN_WIDTH = 10;
 
-    public DrawableObject(Point screenSize, boolean debug) {
+    public DrawableObject(Scene scene, boolean debug) {
         this.debug = debug;
-        this.screenSize = screenSize;
+        this.scene = scene;
     }
 
     public void draw(Canvas canvas)
@@ -37,45 +33,5 @@ public abstract class DrawableObject {
     public abstract void loadObject(Context context);
     protected abstract void drawObject(Canvas canvas);
 
-    protected float getAspectRatio() {
-        if (aspectRatio == null)  aspectRatio = (float)(screenSize.getY() / screenSize.getX());
-        return aspectRatio;
-    }
-
-    protected float getWidthInM() {
-        return METERS_PER_SCREEN_WIDTH;
-    }
-
-    protected float getHeightInM() {
-        return METERS_PER_SCREEN_WIDTH * getAspectRatio();
-    }
-
-    protected float getPixelsPerMeterWidth() {
-        if (pixelsPerMeterWidth == null) pixelsPerMeterWidth = (float)(screenSize.getX() / getWidthInM());
-        return pixelsPerMeterWidth;
-    }
-
-    protected float getPixelsPerMeterHeight() {
-        if (pixelsPerMeterHeight == null) pixelsPerMeterHeight = (float)(screenSize.getY() / getHeightInM());
-        return pixelsPerMeterHeight;
-    }
-
-    /**
-     * Helper method to translate meters in usable pixels
-     * @param meters
-     * @return
-     */
-    protected float metersHeight(float meters) {
-        return meters * getPixelsPerMeterHeight();
-    }
-
-    /**
-     * Helper method to translate meters in usable pixels
-     * @param meters
-     * @return
-     */
-    protected float metersWidth(float meters) {
-        return meters * getPixelsPerMeterWidth();
-    }
 
 }

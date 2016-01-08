@@ -14,29 +14,37 @@ import ro.redmotor.kartgame.R;
  */
 public class KartDO extends DrawableObject {
 
-    private Game game;
     private Bitmap kart;
 
-    public KartDO(Point screenSize, Game game, boolean debug) {
-        super(screenSize, debug);
-        this.game = game;
+    public KartDO(Scene scene, boolean debug) {
+        super(scene, debug);
+        scene.setKart(this);
     }
 
     @Override
     public void loadObject(Context context) {
         kart = BitmapFactory.decodeResource(context.getResources(), R.drawable.kart);
+        float scaleX = ((float)scene.getScreenSize().getX() / scene.getWidthInM()) / (kart.getWidth()/ (float)scene.getGame().getVehicle().getWidth());
+
+        kart = Bitmap.createScaledBitmap(kart,(int)(kart.getWidth()*scaleX),(int)(kart.getHeight()*scaleX),false);
     }
+
 
     @Override
     protected void drawObject(Canvas canvas) {
 
-        float scaleX = (canvas.getWidth()/ getWidthInM()) / (kart.getWidth()/ (float)game.getVehicle().getWidth());
+        float trackScale = (float)scene.getGame().getTrack().getScale();
+        float scaleX = trackScale / (kart.getWidth() / (float)scene.getGame().getVehicle().getWidth());
         canvas.scale(scaleX, scaleX);
 
-        float x = metersWidth(getWidthInM() / 2 - (float)game.getVehicle().getWidth() / 2)  / scaleX;
-        float y = metersHeight(getHeightInM() - (float)game.getVehicle().getLength()) / scaleX;
-        canvas.drawBitmap(kart, x, y, null);
 
+        float x = (float) scene.getVehiclePosition().getX() * trackScale / scaleX;
+        float y = (float)(scene.getGame().getTrack().getTrackHeight() - scene.getVehiclePosition().getY()) * trackScale / scaleX;
+        canvas.translate(x, y);
+        canvas.rotate((float) (scene.getVehicleAngle() / Math.PI * 180.0f));
+
+        canvas.drawBitmap(kart, -kart.getWidth()/2, -kart.getHeight()/2, null);
 
     }
+
 }

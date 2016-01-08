@@ -1,6 +1,8 @@
 package ro.redmotor.kartgame.Drawables;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +13,7 @@ import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
 import ro.redmotor.kartgame.Game.Track.LapsManager;
 import ro.redmotor.kartgame.Game.Track.Track;
 import ro.redmotor.kartgame.Game.Utilities.Point;
+import ro.redmotor.kartgame.R;
 
 /**
  * Created by Gabi on 12/20/2015.
@@ -18,16 +21,13 @@ import ro.redmotor.kartgame.Game.Utilities.Point;
 public class TelemetryDO extends DrawableObject {
 
 
-    private Game game;
-
-    public TelemetryDO(Point screenSize, boolean debug, Game game) {
-        super(screenSize, debug);
-        this.game = game;
+    public TelemetryDO(Scene scene, boolean debug) {
+        super(scene, debug);
+        scene.setTelemetry(this);
     }
 
     @Override
     public void loadObject(Context context) {
-
     }
 
     @Override
@@ -35,7 +35,7 @@ public class TelemetryDO extends DrawableObject {
         //draw debug stuff
         Paint p = new Paint();
         p.setColor(Color.WHITE);
-        float fontSize = getPixelsPerMeterWidth() / 2;
+        float fontSize = scene.getPixelsPerMeterWidth() / 2;
         p.setTextSize(fontSize);
 
         Typeface bold = Typeface.create(Typeface.SERIF, Typeface.BOLD);
@@ -45,33 +45,32 @@ public class TelemetryDO extends DrawableObject {
         rP.setColor(Color.BLACK);
 
 
-        LapsManager lMan = game.getLapsManager();
-        String currentLap = String.format("Lap %d: %3.3fs",
-                lMan.getCurrentLap(),
-                ((float) (System.currentTimeMillis() - lMan.getCurrentLapStartTime())) / 1000);
+        LapsManager lMan = scene.getGame().getLapsManager();
 
-        //canvas.drawRect(metersWidth(0.5f), metersHeight(0.5f), metersWidth(0.5f) + currentLap.length() * fontSize/2, metersHeight(1.75f) + 2 * fontSize , rP);
         if (lMan.getCurrentLap() > 0) {
-            canvas.drawText(currentLap, metersWidth(0.6f), metersHeight(1.1f), p);
+            String currentLap = String.format("Lap %d: %3.3fs",
+                    lMan.getCurrentLap(),
+                    ((float) (System.currentTimeMillis() - lMan.getCurrentLapStartTime())) / 1000);
+            canvas.drawText(currentLap, scene.metersWidth(0.6f), scene.metersHeight(1.1f), p);
         } else {
-            canvas.drawText("No Lap",metersWidth(0.6f), metersHeight(1.1f), p);
+            canvas.drawText("No Lap", scene.metersWidth(0.6f), scene.metersHeight(1.1f), p);
         }
 
         String lastLap = "Last: NA";
         if (lMan.getLastLapTime()!=null) {
             lastLap = String.format("Last: %.3fs", (float)lMan.getLastLapTime()/1000);
         }
-        canvas.drawText(lastLap, metersWidth(0.6f), metersHeight(1.6f),p);
+        canvas.drawText(lastLap, scene.metersWidth(0.6f), scene.metersHeight(1.6f),p);
 
         String bestTime = "Best: NA";
         if (lMan.getBestLapTime() != null) {
             bestTime = String.format("Best: %.3fs", (float) lMan.getBestLapTime() / 1000);
         }
-        canvas.drawText(bestTime, metersWidth(0.6f), metersHeight(2.1f),p);
+        canvas.drawText(bestTime, scene.metersWidth(0.6f), scene.metersHeight(2.1f),p);
 
 
 
-        canvas.drawText(String.format("%.1f km/h", (float)game.getVehicle().getSpeed() *36/10), metersWidth(7.5f), metersHeight(1.1f),p);
+        canvas.drawText(String.format("%.1f km/h", (float)scene.getGame().getVehicle().getSpeed() *36/10), scene.metersWidth(7.5f), scene.metersHeight(1.1f),p);
 
 //        canvas.drawText(String.format("Rpm: %.1f / Speed: %.1f / Steering: %.2f / Brake: %.2f / Th: %.2f / Last: %d",
 //                game.getVehicle().getPowertrain().getEngine().getRpm(),

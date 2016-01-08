@@ -63,6 +63,7 @@ public class GameThread extends Thread {
             //and how much we have to wait to achieve the required fps
             waitTimeMills = (targetTimeMills - loopTimeMills);
 
+            //if (waitTimeMills<0) System.out.println("waitTimeMills:"+waitTimeMills);
             //sleep
             try {
                 if (waitTimeMills > 0) {

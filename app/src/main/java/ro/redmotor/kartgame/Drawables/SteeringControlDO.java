@@ -25,14 +25,16 @@ public class SteeringControlDO extends DrawableObject implements IGameControl {
 
     private Integer steeringPointer;
 
-    public SteeringControlDO(Point screenSize, boolean debug) {
-        super(screenSize, debug);
+    public SteeringControlDO(Scene scene, boolean debug) {
+        super(scene, debug);
+
+        scene.setSteeringWheel(this);
 
         //be careful of the order X2 > X1 and Y2 > Y1
-        boundX1 = metersWidth(6.5f);
-        boundX2 = metersWidth(9.5f);
-        boundY1 = metersHeight(getHeightInM() - 3);
-        boundY2 = metersHeight(getHeightInM());
+        boundX1 = scene.metersWidth(6.5f);
+        boundX2 = scene.metersWidth(9.5f);
+        boundY1 = scene.metersHeight(scene.getHeightInM() - 3);
+        boundY2 = scene.metersHeight(scene.getHeightInM());
         resetSteering();
 
     }
@@ -61,7 +63,7 @@ public class SteeringControlDO extends DrawableObject implements IGameControl {
 
         //draw wheel
         canvas.translate(boundX1 + (boundX2 - boundX1)/2, boundY1 + (boundY2-boundY1)/2);
-        float scaleX = (canvas.getWidth()/ getWidthInM()) / (wheel.getWidth()/ 3f);
+        float scaleX = (canvas.getWidth()/ scene.getWidthInM()) / (wheel.getWidth()/ 3f);
         canvas.scale(scaleX,scaleX);
         canvas.rotate((float)(getSteering() / Math.PI * 180.0f));
         canvas.drawBitmap(wheel,-wheel.getWidth()/2, -wheel.getHeight()/2,null );
