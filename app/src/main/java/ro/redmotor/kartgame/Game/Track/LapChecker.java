@@ -1,7 +1,7 @@
-package ro.redmotor.kartgame.Game.Track;
+package ro.redmotor.kartgame.game.track;
 
-import ro.redmotor.kartgame.Game.Utilities.Line2;
-import ro.redmotor.kartgame.Game.Utilities.Point;
+import ro.redmotor.kartgame.game.utilities.Line2;
+import ro.redmotor.kartgame.game.utilities.Point;
 
 /**
  * Created by Gabi on 12/11/2015.

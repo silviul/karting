@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Game.Utilities;
+package ro.redmotor.kartgame.game.utilities;
 
 /**
  * Created by Gabi on 12/11/2015.

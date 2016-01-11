@@ -1,7 +1,7 @@
-package ro.redmotor.kartgame.Game.Engine;
+package ro.redmotor.kartgame.game.engine;
 
-import ro.redmotor.kartgame.Game.Utilities.SpatialObject;
-import ro.redmotor.kartgame.Game.Vehicle.Vehicle;
+import ro.redmotor.kartgame.game.utilities.SpatialObject;
+import ro.redmotor.kartgame.game.vehicle.Vehicle;
 
 /**
  * Created by Gabi on 12/26/2015.

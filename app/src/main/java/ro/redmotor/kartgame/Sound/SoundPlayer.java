@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Sound;
+package ro.redmotor.kartgame.sound;
 
 import android.content.Context;
 import android.media.AudioAttributes;

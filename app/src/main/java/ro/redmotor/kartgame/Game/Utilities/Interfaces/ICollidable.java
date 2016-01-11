@@ -1,6 +1,6 @@
-package ro.redmotor.kartgame.Game.Utilities.Interfaces;
+package ro.redmotor.kartgame.game.utilities.interfaces;
 
-import ro.redmotor.kartgame.Game.Utilities.Point;
+import ro.redmotor.kartgame.game.utilities.Point;
 
 /**
  * Created by Gabi on 12/11/2015.

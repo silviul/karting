@@ -1,10 +1,8 @@
-package ro.redmotor.kartgame.Game.Track;
+package ro.redmotor.kartgame.game.track;
 
-import android.util.Log;
-
-import ro.redmotor.kartgame.Game.Utilities.Line2;
-import ro.redmotor.kartgame.Game.Utilities.Point;
-import ro.redmotor.kartgame.Game.Vehicle.Vehicle;
+import ro.redmotor.kartgame.game.utilities.Line2;
+import ro.redmotor.kartgame.game.utilities.Point;
+import ro.redmotor.kartgame.game.vehicle.Vehicle;
 
 /**
  * Created by Gabi on 12/11/2015.

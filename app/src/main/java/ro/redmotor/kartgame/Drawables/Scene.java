@@ -1,14 +1,13 @@
-package ro.redmotor.kartgame.Drawables;
+package ro.redmotor.kartgame.drawables;
 
 import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
-import ro.redmotor.kartgame.Cameras.FixedKartCamera;
-import ro.redmotor.kartgame.Cameras.ICamera;
-import ro.redmotor.kartgame.Game.Engine.Game;
-import ro.redmotor.kartgame.Game.Utilities.Point;
+import ro.redmotor.kartgame.cameras.ICamera;
+import ro.redmotor.kartgame.game.engine.Game;
+import ro.redmotor.kartgame.game.utilities.Point;
 
 /**
  * Created by Gabi on 1/4/2016.

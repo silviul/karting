@@ -1,6 +1,6 @@
-package ro.redmotor.kartgame.Game.Track;
+package ro.redmotor.kartgame.game.track;
 
-import ro.redmotor.kartgame.Game.Track.Interfaces.ILapListener;
+import ro.redmotor.kartgame.game.track.interfaces.ILapListener;
 
 /**
  * Created by Gabi on 12/11/2015.

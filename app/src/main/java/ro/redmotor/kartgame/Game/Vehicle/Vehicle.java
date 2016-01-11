@@ -1,9 +1,9 @@
-package ro.redmotor.kartgame.Game.Vehicle;
+package ro.redmotor.kartgame.game.vehicle;
 
-import ro.redmotor.kartgame.Game.Utilities.Interfaces.ICollidable;
-import ro.redmotor.kartgame.Game.Utilities.Point;
-import ro.redmotor.kartgame.Game.Utilities.SpatialObject;
-import ro.redmotor.kartgame.Game.Utilities.Timer;
+import ro.redmotor.kartgame.game.utilities.interfaces.ICollidable;
+import ro.redmotor.kartgame.game.utilities.Point;
+import ro.redmotor.kartgame.game.utilities.SpatialObject;
+import ro.redmotor.kartgame.game.utilities.Timer;
 
 /**
  * Created by Gabi on 12/11/2015.
@@ -22,11 +22,11 @@ public class Vehicle extends SpatialObject implements ICollidable{
     private Powertrain powertrain;
     private BrakingSystem brakingSystem;
 
-    public ro.redmotor.kartgame.Game.Vehicle.Powertrain getPowertrain() {
+    public ro.redmotor.kartgame.game.vehicle.Powertrain getPowertrain() {
         return powertrain;
     }
 
-    public void setPowertrain(ro.redmotor.kartgame.Game.Vehicle.Powertrain powertrain) {
+    public void setPowertrain(ro.redmotor.kartgame.game.vehicle.Powertrain powertrain) {
         this.powertrain = powertrain;
     }
 

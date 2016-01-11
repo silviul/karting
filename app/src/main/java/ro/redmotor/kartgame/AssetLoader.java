@@ -5,12 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
-import ro.redmotor.kartgame.Game.Engine.Interfaces.ITrackLoader;
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IVehicleLoader;
-import ro.redmotor.kartgame.Game.Track.Track;
-import ro.redmotor.kartgame.Game.Utilities.Line2;
-import ro.redmotor.kartgame.Game.Utilities.Point;
-import ro.redmotor.kartgame.Game.Vehicle.Vehicle;
+import ro.redmotor.kartgame.game.engine.interfaces.ITrackLoader;
+import ro.redmotor.kartgame.game.engine.interfaces.IVehicleLoader;
+import ro.redmotor.kartgame.game.track.Track;
+import ro.redmotor.kartgame.game.utilities.Line2;
+import ro.redmotor.kartgame.game.utilities.Point;
+import ro.redmotor.kartgame.game.vehicle.Vehicle;
 
 /**
  * Created by Gabi on 12/15/2015.

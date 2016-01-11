@@ -1,14 +1,15 @@
-package ro.redmotor.kartgame.Game.Engine;
+package ro.redmotor.kartgame.game.engine;
 
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
-import ro.redmotor.kartgame.Game.Engine.Interfaces.ITrackLoader;
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IVehicleLoader;
-import ro.redmotor.kartgame.Game.Track.Interfaces.ILapListener;
-import ro.redmotor.kartgame.Game.Track.LapChecker;
-import ro.redmotor.kartgame.Game.Track.LapsManager;
-import ro.redmotor.kartgame.Game.Track.Track;
-import ro.redmotor.kartgame.Game.Utilities.SpatialObject;
-import ro.redmotor.kartgame.Game.Vehicle.Vehicle;
+import ro.redmotor.kartgame.game.engine.interfaces.IGameListener;
+import ro.redmotor.kartgame.game.engine.interfaces.ITrackLoader;
+import ro.redmotor.kartgame.game.engine.interfaces.IVehicleLoader;
+import ro.redmotor.kartgame.game.track.interfaces.ILapListener;
+import ro.redmotor.kartgame.game.track.LapChecker;
+import ro.redmotor.kartgame.game.track.LapsManager;
+import ro.redmotor.kartgame.game.track.Track;
+import ro.redmotor.kartgame.game.utilities.SpatialObject;
+import ro.redmotor.kartgame.game.vehicle.Vehicle;
+import ro.redmotor.kartgame.preferences.interfaces.GamePreferences;
 
 /**
  * Created by Gabi on 12/11/2015.
@@ -54,12 +55,13 @@ public class Game implements ILapListener {
         this.pause = true;
     }
 
-    public Game(IGameListener listener, ITrackLoader trackLoader, IVehicleLoader vehicleLoader) {
+    public Game(IGameListener listener, ITrackLoader trackLoader,
+                IVehicleLoader vehicleLoader, GamePreferences gamePreferences) {
         this.listener = listener != null ? listener : new NullGameListener();
         this.trackLoader = trackLoader;
         this.vehicleLoader = vehicleLoader;
         this.lapChecker = new LapChecker();
-        this.lapsManager = new LapsManager(this);
+        this.lapsManager = new LapsManager(this, gamePreferences);
         this.ghostTracker = new GhostTracker();
     }
 

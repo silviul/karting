@@ -1,11 +1,9 @@
-package ro.redmotor.kartgame.Drawables;
+package ro.redmotor.kartgame.drawables;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
-import ro.redmotor.kartgame.Game.Utilities.Point;
 
 /**
  * Created by Gabi on 12/14/2015.

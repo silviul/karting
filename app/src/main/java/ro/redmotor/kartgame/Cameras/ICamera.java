@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Cameras;
+package ro.redmotor.kartgame.cameras;
 
 import android.graphics.Canvas;
 

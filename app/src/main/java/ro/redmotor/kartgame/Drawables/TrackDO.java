@@ -1,16 +1,10 @@
-package ro.redmotor.kartgame.Drawables;
+package ro.redmotor.kartgame.drawables;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 
-import java.util.ArrayList;
-
-import ro.redmotor.kartgame.Game.Engine.Game;
-import ro.redmotor.kartgame.Game.Utilities.Line2;
-import ro.redmotor.kartgame.Game.Utilities.Point;
 import ro.redmotor.kartgame.R;
 
 /**

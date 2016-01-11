@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Game.Track.Interfaces;
+package ro.redmotor.kartgame.game.track.interfaces;
 
 /**
  * Created by Gabi on 12/11/2015.

@@ -1,10 +1,10 @@
-package ro.redmotor.kartgame.Game.Engine;
+package ro.redmotor.kartgame.game.engine;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 
-import ro.redmotor.kartgame.Game.Utilities.SpatialObject;
+import ro.redmotor.kartgame.game.utilities.SpatialObject;
 
 /**
  * Created by Gabi on 12/26/2015.

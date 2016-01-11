@@ -1,7 +1,7 @@
-package ro.redmotor.kartgame.Game.Engine;
+package ro.redmotor.kartgame.game.engine;
 
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
-import ro.redmotor.kartgame.Game.Track.Track;
+import ro.redmotor.kartgame.game.engine.interfaces.IGameListener;
+import ro.redmotor.kartgame.game.track.Track;
 
 /**
  * Created by Gabi on 12/11/2015.

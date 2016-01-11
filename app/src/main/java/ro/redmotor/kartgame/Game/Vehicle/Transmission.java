@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Game.Vehicle;
+package ro.redmotor.kartgame.game.vehicle;
 
 import java.util.ArrayList;
 

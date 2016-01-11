@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Drawables;
+package ro.redmotor.kartgame.drawables;
 
 import android.content.Context;
 import android.graphics.Bitmap;

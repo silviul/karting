@@ -1,20 +1,20 @@
-package ro.redmotor.kartgame.Game.Track;
+package ro.redmotor.kartgame.game.track;
 
-import ro.redmotor.kartgame.Game.Track.Interfaces.ILapListener;
+import ro.redmotor.kartgame.game.track.interfaces.ILapListener;
+import ro.redmotor.kartgame.preferences.interfaces.GamePreferences;
 
 /**
  * Created by Gabi on 12/11/2015.
  */
-public class LapsManager
-{
+public class LapsManager {
     private ILapListener lapListener;
     private int currentLap;
     private Long currentLapStartTime;
     private Long lastLapTime;
-    private Long bestLapTime;
+    private GamePreferences gamePreferences;
 
-    public LapsManager(ILapListener lapListener)
-    {
+    public LapsManager(ILapListener lapListener, GamePreferences gamePreferences) {
+        this.gamePreferences = gamePreferences;
         this.lapListener = lapListener != null ? lapListener : new NullLapListener();
     }
 
@@ -30,23 +30,20 @@ public class LapsManager
         return lastLapTime;
     }
 
-    public void reset()
-    {
+    public void reset() {
         currentLap = 0;
         currentLapStartTime = null;
     }
 
-    public void newDetection(Long detectionTime)
-    {
-
+    public void newDetection(Long detectionTime) {
         long currentTimeInMills = System.currentTimeMillis();
 
-        if (currentLapStartTime != null)
-        {
+        if (currentLapStartTime != null) {
             //not starting a lap but finishing one
             lastLapTime = (currentTimeInMills - currentLapStartTime);
-            if (bestLapTime == null || bestLapTime > lastLapTime) {
-                bestLapTime = lastLapTime;
+            long bestLapTime = getBestLapTime();
+            if (bestLapTime == -1 || bestLapTime > lastLapTime) {
+                gamePreferences.saveBestTime(lastLapTime);
             }
             lapListener.lapFinished(currentLap, lastLapTime);
         }
@@ -59,6 +56,6 @@ public class LapsManager
     }
 
     public Long getBestLapTime() {
-        return bestLapTime;
+        return gamePreferences.getBestTime();
     }
 }

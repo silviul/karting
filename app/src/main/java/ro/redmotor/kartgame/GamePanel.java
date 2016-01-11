@@ -7,12 +7,11 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import ro.redmotor.kartgame.Drawables.DrawableObject;
-import ro.redmotor.kartgame.Drawables.Scene;
-import ro.redmotor.kartgame.Game.Engine.Game;
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
-import ro.redmotor.kartgame.Game.Track.Track;
-import ro.redmotor.kartgame.Sound.SoundPlayer;
+import ro.redmotor.kartgame.drawables.Scene;
+import ro.redmotor.kartgame.game.engine.Game;
+import ro.redmotor.kartgame.game.engine.interfaces.IGameListener;
+import ro.redmotor.kartgame.game.track.Track;
+import ro.redmotor.kartgame.sound.SoundPlayer;
 
 /**
  * Created by Gabi on 12/12/2015.

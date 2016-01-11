@@ -1,4 +1,4 @@
-package ro.redmotor.kartgame.Drawables;
+package ro.redmotor.kartgame.drawables;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-import ro.redmotor.kartgame.Game.Track.LapsManager;
+import ro.redmotor.kartgame.game.track.LapsManager;
 
 public class TelemetryDO extends DrawableObject {
 
@@ -53,7 +53,7 @@ public class TelemetryDO extends DrawableObject {
         canvas.drawText(lastLap, scene.metersWidth(0.6f), scene.metersHeight(1.6f),p);
 
         String bestTime = "Best: NA";
-        if (lMan.getBestLapTime() != null) {
+        if (lMan.getBestLapTime() != -1) {
             bestTime = String.format("Best: %.3fs", (float) lMan.getBestLapTime() / 1000);
         }
         canvas.drawText(bestTime, scene.metersWidth(0.6f), scene.metersHeight(2.1f),p);

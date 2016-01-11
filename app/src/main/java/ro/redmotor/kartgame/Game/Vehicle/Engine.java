@@ -1,9 +1,8 @@
-package ro.redmotor.kartgame.Game.Vehicle;
+package ro.redmotor.kartgame.game.vehicle;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Gabi on 12/11/2015.

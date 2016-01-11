@@ -1,28 +1,32 @@
 package ro.redmotor.kartgame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 
-import ro.redmotor.kartgame.Cameras.DelayedFixedKartCamera;
-import ro.redmotor.kartgame.Cameras.FixedKartCamera;
-import ro.redmotor.kartgame.Cameras.FixedTrackCamera;
-import ro.redmotor.kartgame.Cameras.ICamera;
-import ro.redmotor.kartgame.Drawables.CamControlDO;
-import ro.redmotor.kartgame.Drawables.DrawableObject;
-import ro.redmotor.kartgame.Drawables.GhostDO;
-import ro.redmotor.kartgame.Drawables.KartDO;
-import ro.redmotor.kartgame.Drawables.Scene;
-import ro.redmotor.kartgame.Drawables.SteeringControlDO;
-import ro.redmotor.kartgame.Drawables.TelemetryDO;
-import ro.redmotor.kartgame.Drawables.ThrottleBrakingSeparateControlsDO;
-import ro.redmotor.kartgame.Drawables.TrackDO;
-import ro.redmotor.kartgame.Game.Engine.Game;
-import ro.redmotor.kartgame.Game.Utilities.Point;
-import ro.redmotor.kartgame.Sound.SoundPlayer;
+import ro.redmotor.kartgame.cameras.DelayedFixedKartCamera;
+import ro.redmotor.kartgame.cameras.FixedKartCamera;
+import ro.redmotor.kartgame.cameras.FixedTrackCamera;
+import ro.redmotor.kartgame.cameras.ICamera;
+import ro.redmotor.kartgame.drawables.CamControlDO;
+import ro.redmotor.kartgame.drawables.DrawableObject;
+import ro.redmotor.kartgame.drawables.GhostDO;
+import ro.redmotor.kartgame.drawables.KartDO;
+import ro.redmotor.kartgame.drawables.Scene;
+import ro.redmotor.kartgame.drawables.SteeringControlDO;
+import ro.redmotor.kartgame.drawables.TelemetryDO;
+import ro.redmotor.kartgame.drawables.ThrottleBrakingSeparateControlsDO;
+import ro.redmotor.kartgame.drawables.TrackDO;
+import ro.redmotor.kartgame.game.engine.Game;
+import ro.redmotor.kartgame.game.utilities.Point;
+import ro.redmotor.kartgame.preferences.SharedPreferencesBasedGamePreferences;
+import ro.redmotor.kartgame.preferences.interfaces.GamePreferences;
+import ro.redmotor.kartgame.sound.SoundPlayer;
 
 /**
  * Created by Gabi on 12/17/2015.
@@ -45,7 +49,7 @@ public class GameBuilder {
 
 
         AssetLoader assetLoader = new AssetLoader(context);
-        Game game = new Game(null, assetLoader, assetLoader);
+        Game game = new Game(null, assetLoader, assetLoader, gamePreferences());
         Scene scene = new Scene(screenSize, game);
         DrawableObject kart = new KartDO(scene, debug);
         DrawableObject track = new TrackDO(scene, debug);
@@ -78,5 +82,12 @@ public class GameBuilder {
         game.setListener(gamePanel);
 
         return gamePanel;
+    }
+
+    private GamePreferences gamePreferences() {
+        SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor defaultSharedPreferencesEditor = defaultSharedPreferences.edit();
+        GamePreferences result = new SharedPreferencesBasedGamePreferences(defaultSharedPreferences, defaultSharedPreferencesEditor);
+        return result;
     }
 }
