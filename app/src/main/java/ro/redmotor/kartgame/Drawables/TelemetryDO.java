@@ -1,23 +1,13 @@
 package ro.redmotor.kartgame.Drawables;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
-import ro.redmotor.kartgame.Game.Engine.Game;
-import ro.redmotor.kartgame.Game.Engine.Interfaces.IGameListener;
 import ro.redmotor.kartgame.Game.Track.LapsManager;
-import ro.redmotor.kartgame.Game.Track.Track;
-import ro.redmotor.kartgame.Game.Utilities.Point;
-import ro.redmotor.kartgame.R;
 
-/**
- * Created by Gabi on 12/20/2015.
- */
 public class TelemetryDO extends DrawableObject {
 
 
