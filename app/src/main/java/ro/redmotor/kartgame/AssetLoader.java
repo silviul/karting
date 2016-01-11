@@ -36,15 +36,6 @@ public class AssetLoader implements ITrackLoader, IVehicleLoader {
             }
         }
 
-        // public void nouCode() {
-        // cod
-        // }
-
-
-        // public void cevaDiferit() {
-
-        // }
-
         //Initialize an new track
         Track track = new Track(trackL);
         track.setFinishLine(new Line2(new Point(33.5, 1), new Point(33.5, 16.5)));

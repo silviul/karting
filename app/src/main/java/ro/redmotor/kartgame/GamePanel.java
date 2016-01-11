@@ -2,8 +2,6 @@ package ro.redmotor.kartgame;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -27,7 +25,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
     private IGameControl steeringControl;
     private IGameControl throttleBrakingControl;
     private IGameControl camControl;
-
 
     //sound
     private SoundPlayer soundPlayer;
@@ -80,7 +77,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
         try {
             game.startNewGame();
             //start game thread
-            gameThread =  new GameThread(getHolder(), this);
+            gameThread = new GameThread(getHolder(), this);
             gameThread.setRunning(true);
             gameThread.start();
 
@@ -99,7 +96,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
 
         soundPlayer.stopEngine();
         boolean retry = true;
-        while(retry) {
+        while (retry) {
             try {
                 gameThread.setRunning(false);
                 gameThread.join();
@@ -192,7 +189,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
 
             //get selections from the user
             double throttleBrake = throttleBrakingControl.getSelection();
-            double braking =  throttleBrake < 0 ? throttleBrake : 0;
+            double braking = throttleBrake < 0 ? throttleBrake : 0;
             double throttle = throttleBrake > 0 ? throttleBrake : 0;
 
             //apply selections to game
@@ -232,13 +229,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback, IG
     @Override
     public void vehicleCollided(Track.CollisionResult result) {
         if (result == Track.CollisionResult.LightCollision) {
-            Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(30);
         }
     }
 
     @Override
     public void lapStarted(int lapNo) {
-        System.out.println("Lap started "+lapNo);
+        System.out.println("Lap started " + lapNo);
     }
 }

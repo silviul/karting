@@ -28,7 +28,7 @@ public class SoundPlayer {
                     .setAudioAttributes(audioAttributes)
                     .build();
         } else {
-            //buildBeforeAPI21();
+            soundPool = new SoundPool(25, AudioManager.STREAM_MUSIC, 0);
         }
         return soundPool;
     }

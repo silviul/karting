@@ -59,7 +59,6 @@ public class GameBuilder {
         IGameControl camControl = (IGameControl) cam;
         SoundPlayer soundPlayer = new SoundPlayer();
 
-
         GamePanel gamePanel = new GamePanel(context,
                 scene,
                 steeringControl,

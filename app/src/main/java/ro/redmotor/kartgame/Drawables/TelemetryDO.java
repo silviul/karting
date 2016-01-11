@@ -38,7 +38,7 @@ public class TelemetryDO extends DrawableObject {
         float fontSize = scene.getPixelsPerMeterWidth() / 2;
         p.setTextSize(fontSize);
 
-        Typeface bold = Typeface.create(Typeface.SERIF, Typeface.BOLD);
+        Typeface bold = Typeface.create(Typeface.DEFAULT, Typeface.BOLD);
         p.setTypeface(bold);
 
         Paint rP = new Paint();
